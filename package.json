@@ -1,44 +1,56 @@
 {
-  "name": "module-name",
-  "version": "0.1.0-beta.1",
-  "main": "dist/index.umd.js",
-  "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
-  "repository": "https://github.com/crimson206/{repository}.git",
-  "author": "crimson206 <sisung.kim1@gmail.com>",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "name": "copilot-bridge",
+  "displayName": "Copilot Bridge",
+  "description": "Exposes Copilot chat as an API for programmatic use",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
   },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
+  "categories": [
+    "Other"
   ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilot-api.start",
+        "title": "Start Copilot API Server"
+      }
+    ],
+    "configuration": {
+      "title": "Copilot Bridge",
+      "properties": {
+        "copilotApi.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start the Copilot API server when VS Code starts"
+        }
+      }
+    }
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "prepublishOnly": "yarn build",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "storybook:publish": "yarn build-storybook && touch ./storybook-static/.nojekyll && gh-pages -d ./storybook-static -t true",
-    "remove-blog": "git push origin --delete gh-pages"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
   },
   "devDependencies": {
-    "@storybook/react": "^8.1.4",
-    "@storybook/react-vite": "^8.1.4",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
-    "gh-pages": "^6.2.0",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.3.0",
-    "storybook": "^8.1.4"
+    "@types/vscode": "^1.85.0",
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.2"
   }
 }
