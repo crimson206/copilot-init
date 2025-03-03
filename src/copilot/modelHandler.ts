@@ -48,7 +48,7 @@ export class ModelHandler {
         // Get models using getChatModels since listChatModels doesn't exist
         const models = await vscode.lm.selectChatModels();
         
-        return models.map((model: any) => ({
+        return models.map((model: vscode.LanguageModelChat) => ({
             id: model.id,
             name: model.name,
             vendor: model.vendor,

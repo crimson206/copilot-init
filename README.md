@@ -1,4 +1,4 @@
-# Copilot Bridge
+# Copilot Init
 
 A VS Code extension that exposes [GitHub Copilot chat](https://code.visualstudio.com/docs/copilot/copilot-chat) capabilities as a local API server for programmatic use.
 

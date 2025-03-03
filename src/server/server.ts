@@ -13,7 +13,7 @@ import { setupRoutes } from './routes';
 export class ApiServer {
     private app: express.Express;
     private server: http.Server | null = null;
-    private port: number = 3000;
+    private port = 3000;
     
     constructor() {
         this.app = express();
@@ -73,13 +73,13 @@ export class ApiServer {
      * Find an available port starting from 3000
      * @returns Promise containing an available port
      */
-    private async findAvailablePort(startPort: number = 3000, maxAttempts: number = 10): Promise<number> {
+    private async findAvailablePort(startPort = 3000, maxAttempts = 10): Promise<number> {
         for (let attempt = 0; attempt < maxAttempts; attempt++) {
             const port = startPort + attempt;
             try {
                 await this.checkPortAvailable(port);
                 return port;
-            } catch (error) {
+            } catch {
                 console.log(`Port ${port} is not available, trying next...`);
             }
         }
@@ -95,7 +95,7 @@ export class ApiServer {
         return new Promise((resolve, reject) => {
             const server = http.createServer();
             
-            server.once('error', (err: any) => {
+            server.once('error', (err: NodeJS.ErrnoException) => {
                 server.close();
                 if (err.code === 'EADDRINUSE') {
                     reject(new Error(`Port ${port} is in use`));
