@@ -9,3 +9,16 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+
+.github/**
+flatten/**
+node_modules/**
+scripts/**
+workplace/**
+control.ipynb
+sample.json
+eslint.config.mjs
+.eslintignore
+.eslintrc.js
+.prettierrc
+webpack.config.js
